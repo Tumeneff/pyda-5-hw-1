@@ -18,7 +18,7 @@ SELECT distinct address.district
 AS "adress" 
 from public.address
 where
-address.district like 'K%' and address.district like '%a';
+district like 'K%' and district like '%a' and district NOT LIKE '% %';
 
 
 
@@ -70,7 +70,7 @@ from public.customer
 
 select upper(customer.first_name), activebool 
 from public.customer
-where first_name = 'Kelly' and activebool = True or first_name = 'Willie' and activebool = True;
+where first_name = 'Kelly' or first_name = 'Willie' and activebool = True;
 
 
 --======== ÄÎÏÎËÍÈÒÅËÜÍÀß ×ÀÑÒÜ ==============
