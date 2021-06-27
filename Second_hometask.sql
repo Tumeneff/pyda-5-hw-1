@@ -46,12 +46,13 @@ Having count(customer.customer_id) > 300
 -- Доработайте запрос, добавив в него информацию о городе магазина, 
 --а также фамилию и имя продавца, который работает в этом магазине.
 select c.store_id as "Магазин", count(c.customer_id) as "Количество покупателей",
-(select x.city from city x where a.city_id = x.city_id)  as "Город магаза",
+(select x.city from city x where a.city_id = x.city_id)  as "Город магазина",
 b.first_name ||' '|| b.last_name as "ФИО продавца"
 from customer c, staff b, address a 
 where c.store_id = b.store_id
 and b.address_id = a.address_id 
 group by c.store_id, b.first_name, b.last_name, a.city_id 
+Having count(c.customer_id) > 300
  
 
 
@@ -105,7 +106,7 @@ group by first_name, last_name
 --и дате возврата фильма (поле return_date), 
 --вычислите для каждого покупателя среднее количество дней, за которые покупатель возвращает фильмы.
 select c.first_name ||' '|| c.last_name as "Фамилия и имя",
-avg(a.return_date - a.rental_date) as "срок возврата"
+round(avg(a.return_date :: date - a.rental_date :: date),2)  as "срок возврата"
 from rental a, customer c 
 where a.customer_id = c.customer_id 
 group by c.first_name, c.last_name
